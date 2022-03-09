@@ -8,9 +8,10 @@ class LEDController {
      * @type {HID|undefined}
      */
     this.keyboard = (function () {
+      const vendorIds = [0x04d9, 0x3311];
       const keyboard_info = HID.devices().find((item) => {
         return (
-          item.vendorId === 0x04d9 &&
+          vendorIds.includes(item.vendorId) &&
           item.interface === 1 &&
           LEDController.known_pids.includes(item.productId)
         );
@@ -152,7 +153,7 @@ class LEDController {
 
 //Static mapping
 const mcu_address = 65;
-LEDController.known_pids = [0x8008, 0x8009, 0xa292, 0xa293];
+LEDController.known_pids = [0x8008, 0x8009, 0xa292, 0xa293, 0xa297];
 LEDController.AnnePro2_layout = [
   { key: 'esc', matrix_id: 0 },
   { key: '1', matrix_id: 1 },
